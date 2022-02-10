@@ -23,7 +23,7 @@
     <script src="_framework/blazor.webassembly.js"></script>
 
     <script>
-        function setTheme(theme, isThemeDark) {
+        function setTheme(theme) {
             document.getElementsByTagName('body')[0].style.display = 'none';
             let synclink = document.getElementById('theme');
             synclink.href = '_content/Syncfusion.Blazor.Themes/' + theme + '.css';

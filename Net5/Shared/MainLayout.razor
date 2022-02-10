@@ -55,15 +55,7 @@
     {
         var uri = UrlHelper.ToAbsoluteUri(UrlHelper.Uri);
         QueryHelpers.ParseQuery(uri.Query).TryGetValue("theme", out var theme);
-        theme = theme.Count > 0 ? theme.First() : "bootstrap4";
-        return theme;
-    }
-
-
-    private string GetUri(string themeName)
-    {
-        var uri = UrlHelper.ToAbsoluteUri(UrlHelper.Uri);
-        return uri.AbsolutePath + "?theme=" + themeName;
+        return theme.Count > 0 ? theme.First() : "bootstrap4";
     }
 
     protected override void OnInitialized()

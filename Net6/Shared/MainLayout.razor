@@ -28,7 +28,7 @@
     </main>
 </div>
 @code {
-    private string themeName;
+    private string themeName = "bootstrap4";
 
     public class ThemeDetails
     {
@@ -53,19 +53,6 @@
     public void OnThemeChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string, ThemeDetails> args)
     {
         JSRuntime.InvokeAsync<object>("setTheme", args.ItemData.ID);
-    }
-
-    private string GetThemeName()
-    {
-        var uri = UrlHelper.ToAbsoluteUri(UrlHelper.Uri);
-        QueryHelpers.ParseQuery(uri.Query).TryGetValue("theme", out var theme);
-        return theme.Count > 0 ? theme.First() : "bootstrap4";
-    }
-
-    protected override void OnInitialized()
-    {
-        var theme = GetThemeName();
-        themeName = theme.Contains("bootstrap4") ? "bootstrap4" : theme;
     }
 
 }

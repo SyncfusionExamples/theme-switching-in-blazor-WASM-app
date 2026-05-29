@@ -1,0 +1,54 @@
+﻿@inherits LayoutComponentBase
+@inject IJSRuntime JSRuntime
+@using Syncfusion.Blazor.DropDowns
+
+<div class="page">
+    <div class="sidebar">
+        <NavMenu />
+    </div>
+
+    <main>
+        <div class="top-row px-4">
+            <div class="theme-switcher">
+                @*Theme switcher*@
+                <SfDropDownList TItem="ThemeDetails" TValue="string" @bind-Value="themeName" DataSource="@Themes">
+                    <DropDownListFieldSettings Text="Text" Value="ID"></DropDownListFieldSettings>
+                    <DropDownListEvents TItem="ThemeDetails" TValue="string" ValueChange="OnThemeChange"></DropDownListEvents>
+                </SfDropDownList>
+            </div>
+            <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
+        </div>
+
+        <article class="content px-4">
+            @Body
+        </article>
+    </main>
+</div>
+
+@code {
+    private string themeName = "bootstrap5.3";
+
+    public class ThemeDetails
+    {
+        public string ID { get; set; }
+        public string Text { get; set; }
+    }
+
+    private List<ThemeDetails> Themes = new List<ThemeDetails>()
+    {
+        new ThemeDetails(){ ID = "bootstrap5.3", Text = "Bootstrap 5.3" },
+        new ThemeDetails(){ ID = "bootstrap5.3-dark", Text = "Bootstrap 5.3 Dark" },
+        new ThemeDetails(){ ID = "fluent2", Text = "Fluent 2" },
+        new ThemeDetails(){ ID = "fluent2-dark", Text = "Fluent 2 Dark" },
+        new ThemeDetails(){ ID = "material3", Text = "Material 3" },
+        new ThemeDetails(){ ID = "material3-dark", Text = "Material 3 Dark" },
+        new ThemeDetails(){ ID = "tailwind3", Text = "Tailwind 3.4" },
+        new ThemeDetails(){ ID = "tailwind3-dark", Text = "Tailwind 3.4 Dark" },
+        new ThemeDetails(){ ID = "highcontrast", Text = "High Contrast" }
+    };
+
+    public void OnThemeChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string, ThemeDetails> args)
+    {
+        JSRuntime.InvokeAsync<object>("setTheme", args.ItemData.ID);
+    }
+}
